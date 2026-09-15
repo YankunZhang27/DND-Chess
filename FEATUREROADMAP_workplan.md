@@ -375,11 +375,22 @@ working, deployed game — never a half-built one.
     Figma design, or any discrepancy is explicitly flagged back rather than
     silently changed.
 
-- [ ] **4.3 — Mobile/responsive layout pass**
+- [x] **4.3 — Mobile/responsive layout pass**
   - Depends on: 1.5
   - Files: `public/styles.css`
   - Definition of done: all three modes are usable on a phone-sized screen
-    (board fits without horizontal scrolling, buttons are tappable).
+    (board fits without horizontal scrolling, buttons are tappable). ✅
+    Done. Verified with 8 automated checks at both an iPhone SE-sized
+    viewport (375×667, one of the smallest common phone screens) and
+    Playwright's real "iPhone 13" device profile: no horizontal overflow
+    on the menu, board, or Online setup screens; the board and its
+    squares stay large enough to comfortably tap; tapping actually moves
+    a piece. One real bug found and fixed by actually looking at the
+    screenshot rather than trusting the pass/fail numbers alone: the
+    "Back to Menu" button on the Online setup screen had no matching CSS
+    selector and rendered as an unstyled default browser button, visibly
+    broken next to the rest of the themed UI — fixed by giving it a
+    shared `.btn-secondary` class.
 
 ---
 

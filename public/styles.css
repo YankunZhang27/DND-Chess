@@ -211,7 +211,8 @@ h1 {
 	gap: 1rem;
 }
 
-.controls button {
+.controls button,
+.btn-secondary {
 	font-family: inherit;
 	font-size: 1rem;
 	padding: 0.5rem 1.5rem;
@@ -222,7 +223,8 @@ h1 {
 	cursor: pointer;
 }
 
-.controls button:hover {
+.controls button:hover,
+.btn-secondary:hover {
 	background: var(--color-crimson);
 }
 
