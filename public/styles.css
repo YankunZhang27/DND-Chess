@@ -116,12 +116,43 @@ h1 {
 	color: var(--color-gold);
 }
 
+.status.game-over {
+	font-size: 1.4rem;
+	font-weight: bold;
+	color: var(--color-crimson);
+	text-shadow: 0 0 10px rgba(122, 31, 31, 0.6);
+}
+
+.controls {
+	display: flex;
+	justify-content: center;
+}
+
+.controls button {
+	font-family: inherit;
+	font-size: 1rem;
+	padding: 0.5rem 1.5rem;
+	border: 2px solid var(--color-gold);
+	border-radius: 0.3rem;
+	background: var(--color-square-dark);
+	color: var(--color-parchment);
+	cursor: pointer;
+}
+
+.controls button:hover {
+	background: var(--color-crimson);
+}
+
 .square.clickable {
 	cursor: pointer;
 }
 
 .square.selected {
 	box-shadow: inset 0 0 0 4px var(--color-crimson);
+}
+
+.square.in-check {
+	box-shadow: inset 0 0 14px 4px rgba(255, 60, 0, 0.85);
 }
 
 .square.legal-target {

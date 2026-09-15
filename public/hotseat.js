@@ -1,4 +1,11 @@
-import { createInitialGameState, squareToCoords, getLegalMoves, applyMove } from "./rules.js";
+import {
+	createInitialGameState,
+	squareToCoords,
+	getLegalMoves,
+	applyMove,
+	getGameStatus,
+	getKingSquare,
+} from "./rules.js";
 import { renderBoard } from "./board.js";
 
 const PROMOTION_CHOICES = [
@@ -8,10 +15,10 @@ const PROMOTION_CHOICES = [
 	{ type: "n", label: "Ranger" },
 ];
 
-export function startHotSeatGame(boardEl, statusEl) {
-	let state = createInitialGameState();
-	let selectedSquare = null;
-	let legalMoves = [];
+export function startHotSeatGame(boardEl, statusEl, newGameBtn) {
+	let state;
+	let selectedSquare;
+	let legalMoves;
 
 	function pieceAt(square) {
 		const { row, col } = squareToCoords(square);
@@ -28,14 +35,39 @@ export function startHotSeatGame(boardEl, statusEl) {
 		legalMoves = [];
 	}
 
+	function resetGame() {
+		state = createInitialGameState();
+		clearSelection();
+		render();
+	}
+
 	function render() {
+		const status = getGameStatus(state);
+		const gameOver = status === "checkmate" || status === "stalemate";
+		const sideToMove = state.turn === "w" ? "White" : "Black";
+		const checkSquare = status === "check" || status === "checkmate"
+			? getKingSquare(state, state.turn)
+			: null;
+
 		renderBoard(boardEl, state, {
 			selectedSquare,
 			legalTargets: legalMoves.map((m) => m.to),
-			onSquareClick: handleSquareClick,
+			checkSquare,
+			onSquareClick: gameOver ? undefined : handleSquareClick,
 		});
+
 		if (statusEl) {
-			statusEl.textContent = `${state.turn === "w" ? "White" : "Black"} to move`;
+			if (status === "checkmate") {
+				const winner = state.turn === "w" ? "Black" : "White";
+				statusEl.textContent = `Checkmate — ${winner} wins!`;
+			} else if (status === "stalemate") {
+				statusEl.textContent = "Stalemate — draw";
+			} else if (status === "check") {
+				statusEl.textContent = `${sideToMove} to move — Check!`;
+			} else {
+				statusEl.textContent = `${sideToMove} to move`;
+			}
+			statusEl.classList.toggle("game-over", gameOver);
 		}
 	}
 
@@ -79,7 +111,11 @@ export function startHotSeatGame(boardEl, statusEl) {
 		render();
 	}
 
-	render();
+	if (newGameBtn) {
+		newGameBtn.addEventListener("click", resetGame);
+	}
+
+	resetGame();
 }
 
 function showPromotionPicker(color, onChoose) {

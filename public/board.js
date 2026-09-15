@@ -17,7 +17,7 @@ const PIECE_CLASS_NAMES = {
 };
 
 export function renderBoard(container, gameState, options = {}) {
-	const { selectedSquare = null, legalTargets = [], onSquareClick } = options;
+	const { selectedSquare = null, legalTargets = [], checkSquare = null, onSquareClick } = options;
 
 	container.innerHTML = "";
 	for (let row = 0; row < 8; row++) {
@@ -29,6 +29,7 @@ export function renderBoard(container, gameState, options = {}) {
 
 			if (square === selectedSquare) squareEl.classList.add("selected");
 			if (legalTargets.includes(square)) squareEl.classList.add("legal-target");
+			if (square === checkSquare) squareEl.classList.add("in-check");
 			if (onSquareClick) {
 				squareEl.classList.add("clickable");
 				squareEl.addEventListener("click", () => onSquareClick(square));

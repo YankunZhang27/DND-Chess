@@ -112,12 +112,28 @@ working, deployed game — never a half-built one.
     moving the `e2` pawn, which the engine correctly rejected since the
     diagonal was still blocked — fixed the test sequence, not the code.
 
-- [ ] **1.4 — Check, checkmate, and stalemate feedback**
+- [x] **1.4 — Check, checkmate, and stalemate feedback**
   - Depends on: 1.3
   - Files: `public/hotseat.js`, `public/board.js`, `public/index.html`
   - Definition of done: a king in check is visibly flagged; checkmate or
     stalemate ends the game with an on-screen banner naming the winner (or
     declaring a draw); a "New Game" button resets to a fresh Hot-Seat game.
+    ✅ Done. `rules.js` gained one small helper, `getKingSquare`, so the UI
+    can find which square to flag; `board.js` now highlights that square
+    with an orange glow whenever its side is in check. `hotseat.js`
+    checks the game status after every move: on checkmate/stalemate the
+    status line becomes a bold banner ("Checkmate — White wins!" /
+    "Stalemate — draw") and the board stops accepting clicks; a "New
+    Game" button (added to `index.html`) resets everything. Verified with
+    10 automated in-browser checks: a full scholar's-mate reaching the
+    banner and the correct winner text, the checkmated king glowing, the
+    board refusing further clicks, and "New Game" fully resetting the
+    board, status text, and interactivity — zero console errors. A
+    screenshot confirms the banner and king-glow look right together.
+    The stalemate *text* branch is new UI code but reuses the exact same
+    `getGameStatus` result already proven against a real stalemate
+    position back in task 1.1, so it wasn't re-tested against a fresh
+    board position here — only the wiring around it is new.
 
 - [ ] **1.5 — Landing screen with mode selection**
   - Depends on: 1.4
@@ -261,7 +277,8 @@ working, deployed game — never a half-built one.
 
 ## Next step
 
-Phase 0, 1.1, 1.2, and 1.3 are complete — the game is now fully
-clickable and playable end-to-end for Hot-Seat, short of a game-over
-banner. Tell me which task number to begin with — the recommended next
-task is **1.4** (check, checkmate, and stalemate feedback).
+Phase 0 and all of Phase 1 through task 1.4 are complete — Hot-Seat is
+now a fully playable, self-contained game with a proper game-over
+banner and a New Game button. Tell me which task number to begin with —
+the recommended next task is **1.5** (the landing screen with mode
+selection), the last step before Hot-Seat's first live deployment.

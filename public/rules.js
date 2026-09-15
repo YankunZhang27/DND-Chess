@@ -111,6 +111,11 @@ function findKing(board, color) {
 	return null;
 }
 
+export function getKingSquare(state, color) {
+	const king = findKing(state.board, color);
+	return king ? coordsToSquare(king.row, king.col) : null;
+}
+
 export function isInCheck(state, color) {
 	const king = findKing(state.board, color);
 	if (!king) return false;
