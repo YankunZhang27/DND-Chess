@@ -350,11 +350,31 @@ working, deployed game — never a half-built one.
 
 ## Phase 4 — Theming and polish (interleaved as time allows, not blocking)
 
-- [ ] **4.1 — Full D&D-class artwork/icon set for all pieces**
+- [x] **4.1 — Full D&D-class artwork/icon set for all pieces**
   - Depends on: 1.2
-  - Files: `public/styles.css`, new image/icon assets under `public/`
+  - Files: `public/styles.css`, `public/piece-art.js` (new), `public/board.js`,
+    `public/game-controller.js`, `ProductSpec.md`
   - Definition of done: every piece type on both sides has a distinct,
-    finished D&D-class visual, replacing any placeholder used in 1.2.
+    finished D&D-class visual, replacing any placeholder used in 1.2. ✅
+    Done, per the project owner's direction (medieval feel, strong
+    contrast, each piece a different D&D class — e.g. Bishop as Wizard,
+    Rook as Paladin). Each piece is a small hand-drawn SVG silhouette in
+    `public/piece-art.js`: King (crowned band + cross), Queen/Sorceress
+    (a many-pointed starburst crown), Rook/Paladin (a tower with a holy
+    cross emblem), Bishop/Wizard (a pointed brimmed hat with a starlit
+    tip), Knight/Ranger (a horse's head), Pawn/Militia (a plain-helmeted
+    soldier). Every piece uses a dark-outline-on-light-fill (white) or
+    light-outline-on-dark-fill (black) treatment so both sides stay
+    legible on either board square color. `board.js` now renders these
+    SVGs instead of the Unicode glyphs used since task 1.2, and the
+    promotion picker's labels were updated to match (Paladin, Wizard).
+    Iterated visually before integrating: an early knight design didn't
+    read as a horse at all and was redrawn from scratch by actually
+    looking at rendered screenshots, not just trusting the path
+    coordinates. Verified with 7 automated checks across every mode
+    (Hot-Seat, VS Computer, Online) confirming the new artwork renders
+    and behaves correctly, plus a full-board screenshot check for visual
+    quality and contrast — zero console errors.
 
 - [ ] **4.2 — Match Figma screens exactly**
   - Depends on: Figma designs being shared (not yet available — see
@@ -385,14 +405,15 @@ working, deployed game — never a half-built one.
 
 ## Next step
 
-🎉 **Phases 1, 2, and 3 are all complete and confirmed live.** Hot-Seat,
-VS Computer, and Online all work end-to-end on
-https://dnd-chess.yankunzhang.workers.dev/, verified by the site owner
-directly on the deployed site (not just in local testing).
+🎉 **Phases 1, 2, 3, and now 4.1 are all complete.** Hot-Seat, VS
+Computer, and Online all work end-to-end live at
+https://dnd-chess.yankunzhang.workers.dev/, and every piece now has its
+own hand-drawn D&D-class icon (Wizard bishops, Paladin rooks, Ranger
+knights, and so on) instead of plain chess glyphs.
 
-**Only 4.1 (real D&D-class artwork) and 4.2 (matching Figma exactly)
-remain, and both are paused** — both genuinely need something only the
-project owner can provide: either art assets/style direction for 4.1,
-or actual Figma screens for 4.2 (none have been shared in this project
-yet). Everything else in this plan that could be done without further
-input has been done.
+**Only 4.2 (matching Figma exactly) remains, and it's paused** — it
+needs actual Figma screens, none of which have been shared in this
+project. Everything else that could be done without further input has
+been done. The next commit should auto-deploy the new artwork live via
+Cloudflare's Git integration — worth a quick look once it's up, though
+this isn't a blocking check the way 2.4/3.6 were.

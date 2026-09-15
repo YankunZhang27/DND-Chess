@@ -10,8 +10,8 @@ import { renderBoard } from "./board.js";
 
 const PROMOTION_CHOICES = [
 	{ type: "q", label: "Sorceress" },
-	{ type: "r", label: "Fighter" },
-	{ type: "b", label: "Cleric" },
+	{ type: "r", label: "Paladin" },
+	{ type: "b", label: "Wizard" },
 	{ type: "n", label: "Ranger" },
 ];
 

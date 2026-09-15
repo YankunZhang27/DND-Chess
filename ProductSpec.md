@@ -17,24 +17,28 @@ a player refreshes the page mid-game in Online mode, rejoining with the same
 room code puts them back where they left off.
 
 **Theming:** every piece is re-skinned as a D&D class (visual/name only — a
-Bishop still moves like a Bishop). Example mapping, subject to whatever the
-Figma designs specify once available:
+Bishop still moves like a Bishop):
 
-| Chess piece | D&D theme |
-|---|---|
-| King | King/Paladin |
-| Queen | Sorceress |
-| Rook | Fighter (tower/stronghold) |
-| Bishop | Cleric |
-| Knight | Ranger |
-| Pawn | Militia |
+| Chess piece | D&D theme | Visual motif |
+|---|---|---|
+| King | King | Crowned band topped with a cross |
+| Queen | Sorceress | A jeweled, many-pointed starburst crown |
+| Rook | Paladin | A fortified tower bearing a holy cross emblem |
+| Bishop | Wizard | A tall pointed hat with a brim and a starlit tip |
+| Knight | Ranger | A horse's head and neck, scouting ahead |
+| Pawn | Militia | A plain-helmeted foot soldier |
+
+Each piece is a small hand-drawn SVG silhouette (`public/piece-art.js`), styled
+with a dark-outline/light-fill (and light-outline/dark-fill) treatment so both
+sides stay readable against either board square color — a deliberately
+medieval, woodcut-style look rather than photorealistic art.
 
 > **Note:** No Figma file has been shared in this project yet. Until one is,
-> the visual design will use a placeholder dark-fantasy theme (parchment
-> background, gold/crimson accents). Once Figma screens are provided, the
-> relevant tasks in the workplan will be updated to match them exactly — or
-> flagged if something shown isn't buildable under the technical constraints
-> below.
+> the visual design uses this hand-drawn dark-fantasy theme (parchment
+> background, gold/crimson accents, medieval-styled pieces). Once Figma
+> screens are provided, the relevant tasks in the workplan will be updated to
+> match them exactly — or flagged if something shown isn't buildable under
+> the technical constraints below.
 
 ## 2. How it's organized (architecture)
 

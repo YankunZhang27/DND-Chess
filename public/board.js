@@ -1,20 +1,7 @@
 import { coordsToSquare } from "./rules.js";
+import { PIECE_PATHS, PIECE_CLASS_NAMES } from "./piece-art.js";
 
-const PIECE_SYMBOLS = {
-	w: { k: "♔", q: "♕", r: "♖", b: "♗", n: "♘", p: "♙" },
-	b: { k: "♚", q: "♛", r: "♜", b: "♝", n: "♞", p: "♟" },
-};
-
-// Placeholder D&D-class skin for each piece type — swap for real names/art
-// once Figma screens are available (see ProductSpec.md §1).
-const PIECE_CLASS_NAMES = {
-	k: "King",
-	q: "Sorceress",
-	r: "Fighter",
-	b: "Cleric",
-	n: "Ranger",
-	p: "Militia",
-};
+const SVG_NS = "http://www.w3.org/2000/svg";
 
 export function renderBoard(container, gameState, options = {}) {
 	const { selectedSquare = null, legalTargets = [], checkSquare = null, onSquareClick } = options;
@@ -37,12 +24,17 @@ export function renderBoard(container, gameState, options = {}) {
 
 			const piece = gameState.board[row][col];
 			if (piece) {
-				const pieceEl = document.createElement("span");
-				pieceEl.className = `piece piece-${piece.color}`;
-				pieceEl.textContent = PIECE_SYMBOLS[piece.color][piece.type];
+				const svg = document.createElementNS(SVG_NS, "svg");
+				svg.setAttribute("viewBox", "0 0 100 100");
+				svg.setAttribute("class", `piece piece-${piece.color}`);
+				svg.innerHTML = PIECE_PATHS[piece.type];
+
+				const title = document.createElementNS(SVG_NS, "title");
 				const side = piece.color === "w" ? "White" : "Black";
-				pieceEl.title = `${side} ${PIECE_CLASS_NAMES[piece.type]}`;
-				squareEl.appendChild(pieceEl);
+				title.textContent = `${side} ${PIECE_CLASS_NAMES[piece.type]}`;
+				svg.prepend(title);
+
+				squareEl.appendChild(svg);
 			}
 
 			container.appendChild(squareEl);
