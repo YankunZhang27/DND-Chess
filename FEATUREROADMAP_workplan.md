@@ -88,14 +88,29 @@ working, deployed game — never a half-built one.
     rank 8 at top, White on rank 1 at bottom, `a1` dark / `h1` light, per
     standard chess convention).
 
-- [ ] **1.3 — Wire up Hot-Seat move input and rule enforcement**
+- [x] **1.3 — Wire up Hot-Seat move input and rule enforcement**
   - Depends on: 1.1, 1.2
   - Files: `public/hotseat.js` (new), `public/app.js` (new), `public/board.js`
   - Definition of done: clicking a piece highlights only its legal
     destination squares; clicking a legal square moves the piece and hands
     the turn to the other player; no illegal move can be made through the
     UI; castling, en passant, and promotion (with a piece-choice prompt) all
-    work by clicking.
+    work by clicking. ✅ Done. `board.js` now takes click handlers and
+    highlight state; `hotseat.js` holds the click-to-select/click-to-move
+    state machine and shows an on-screen promotion picker (labelled with
+    the same D&D-class names as the pieces) when a pawn reaches the last
+    rank; `app.js` boots it on page load. A "White/Black to move" status
+    line was added too — a bare minimum so two people sharing one screen
+    know whose turn it is, not the full check/checkmate banner (that's
+    1.4). Verified with 17 automated clicks-in-a-real-browser checks:
+    legal-move highlighting, a full move + turn switch, two illegal-click
+    scenarios (blocked piece, re-clicking to deselect), kingside castling,
+    an en passant capture, and a full promotion flow ending with a pawn
+    turning into a Queen via the on-screen "Sorceress" button — zero
+    console errors throughout. One test-writing mistake caught along the
+    way (not a code bug): my first castling test tried `Bc4` before
+    moving the `e2` pawn, which the engine correctly rejected since the
+    diagonal was still blocked — fixed the test sequence, not the code.
 
 - [ ] **1.4 — Check, checkmate, and stalemate feedback**
   - Depends on: 1.3
@@ -246,7 +261,7 @@ working, deployed game — never a half-built one.
 
 ## Next step
 
-Phase 0, 1.1, and 1.2 are complete. Tell me which task number to begin
-with — the recommended next task is **1.3** (wire up Hot-Seat move input
-and rule enforcement), which makes the board on screen actually
-clickable and playable.
+Phase 0, 1.1, 1.2, and 1.3 are complete — the game is now fully
+clickable and playable end-to-end for Hot-Seat, short of a game-over
+banner. Tell me which task number to begin with — the recommended next
+task is **1.4** (check, checkmate, and stalemate feedback).

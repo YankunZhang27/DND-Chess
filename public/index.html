@@ -8,6 +8,7 @@
 	</head>
 	<body>
 		<h1>D&amp;D Chess</h1>
+		<p id="status" class="status"></p>
 		<div class="board-frame">
 			<div class="ranks">
 				<span>8</span><span>7</span><span>6</span><span>5</span>
@@ -19,11 +20,6 @@
 				<span>e</span><span>f</span><span>g</span><span>h</span>
 			</div>
 		</div>
-		<script type="module">
-			import { createInitialGameState } from "/rules.js";
-			import { renderBoard } from "/board.js";
-
-			renderBoard(document.getElementById("board"), createInitialGameState());
-		</script>
+		<script type="module" src="/app.js"></script>
 	</body>
 </html>

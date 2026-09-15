@@ -16,13 +16,23 @@ const PIECE_CLASS_NAMES = {
 	p: "Militia",
 };
 
-export function renderBoard(container, gameState) {
+export function renderBoard(container, gameState, options = {}) {
+	const { selectedSquare = null, legalTargets = [], onSquareClick } = options;
+
 	container.innerHTML = "";
 	for (let row = 0; row < 8; row++) {
 		for (let col = 0; col < 8; col++) {
+			const square = coordsToSquare(row, col);
 			const squareEl = document.createElement("div");
 			squareEl.className = `square ${(row + col) % 2 === 0 ? "light" : "dark"}`;
-			squareEl.dataset.square = coordsToSquare(row, col);
+			squareEl.dataset.square = square;
+
+			if (square === selectedSquare) squareEl.classList.add("selected");
+			if (legalTargets.includes(square)) squareEl.classList.add("legal-target");
+			if (onSquareClick) {
+				squareEl.classList.add("clickable");
+				squareEl.addEventListener("click", () => onSquareClick(square));
+			}
 
 			const piece = gameState.board[row][col];
 			if (piece) {
