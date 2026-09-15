@@ -71,14 +71,22 @@ working, deployed game — never a half-built one.
     could never actually trigger — fixed by carrying that flag through to
     `applyMove`.
 
-- [ ] **1.2 — Render the board and pieces**
+- [x] **1.2 — Render the board and pieces**
   - Depends on: 1.1
   - Files: `public/index.html`, `public/styles.css` (new), `public/board.js`
     (new)
   - Definition of done: loading the page shows a full chess board in the
     starting position, with each piece shown using its D&D-class theme
     (placeholder art/labels if Figma screens aren't available yet — see
-    `ProductSpec.md` §1).
+    `ProductSpec.md` §1). ✅ Done. `board.js` draws the 64 squares and 32
+    pieces straight from `rules.js`'s starting position, using Unicode
+    chess glyphs whose hover tooltip shows the placeholder D&D-class name
+    (e.g. "White Cleric" for a Bishop) until real art/Figma is available.
+    Verified in an actual headless browser (not just reading the HTML):
+    confirmed 64 squares and 32 pieces render, zero console errors, and a
+    screenshot confirms correct board orientation and coloring (Black on
+    rank 8 at top, White on rank 1 at bottom, `a1` dark / `h1` light, per
+    standard chess convention).
 
 - [ ] **1.3 — Wire up Hot-Seat move input and rule enforcement**
   - Depends on: 1.1, 1.2
@@ -238,6 +246,7 @@ working, deployed game — never a half-built one.
 
 ## Next step
 
-Phase 0 and task 1.1 are complete. Tell me which task number to begin
-with — the recommended next task is **1.2** (render the board and
-pieces), which is the first thing that will be visible in a browser.
+Phase 0, 1.1, and 1.2 are complete. Tell me which task number to begin
+with — the recommended next task is **1.3** (wire up Hot-Seat move input
+and rule enforcement), which makes the board on screen actually
+clickable and playable.

@@ -4,8 +4,26 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>D&amp;D Chess</title>
+		<link rel="stylesheet" href="/styles.css" />
 	</head>
 	<body>
-		<h1>D&amp;D Chess — coming soon</h1>
+		<h1>D&amp;D Chess</h1>
+		<div class="board-frame">
+			<div class="ranks">
+				<span>8</span><span>7</span><span>6</span><span>5</span>
+				<span>4</span><span>3</span><span>2</span><span>1</span>
+			</div>
+			<div id="board" class="board"></div>
+			<div class="files">
+				<span>a</span><span>b</span><span>c</span><span>d</span>
+				<span>e</span><span>f</span><span>g</span><span>h</span>
+			</div>
+		</div>
+		<script type="module">
+			import { createInitialGameState } from "/rules.js";
+			import { renderBoard } from "/board.js";
+
+			renderBoard(document.getElementById("board"), createInitialGameState());
+		</script>
 	</body>
 </html>
