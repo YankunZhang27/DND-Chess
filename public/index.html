@@ -8,21 +8,44 @@
 	</head>
 	<body>
 		<h1>D&amp;D Chess</h1>
-		<p id="status" class="status"></p>
-		<div class="board-frame">
-			<div class="ranks">
-				<span>8</span><span>7</span><span>6</span><span>5</span>
-				<span>4</span><span>3</span><span>2</span><span>1</span>
+
+		<section id="menu" class="menu">
+			<p class="tagline">Choose how you want to play</p>
+			<div class="mode-buttons">
+				<button id="mode-hotseat" type="button" class="mode-button">
+					<span class="mode-title">Hot-Seat</span>
+					<span class="mode-desc">Two players, one screen</span>
+				</button>
+				<button id="mode-vscomputer" type="button" class="mode-button" disabled>
+					<span class="mode-title">VS Computer</span>
+					<span class="mode-desc">Coming soon</span>
+				</button>
+				<button id="mode-online" type="button" class="mode-button" disabled>
+					<span class="mode-title">Online</span>
+					<span class="mode-desc">Coming soon</span>
+				</button>
 			</div>
-			<div id="board" class="board"></div>
-			<div class="files">
-				<span>a</span><span>b</span><span>c</span><span>d</span>
-				<span>e</span><span>f</span><span>g</span><span>h</span>
+		</section>
+
+		<section id="game" class="game hidden">
+			<p id="status" class="status"></p>
+			<div class="board-frame">
+				<div class="ranks">
+					<span>8</span><span>7</span><span>6</span><span>5</span>
+					<span>4</span><span>3</span><span>2</span><span>1</span>
+				</div>
+				<div id="board" class="board"></div>
+				<div class="files">
+					<span>a</span><span>b</span><span>c</span><span>d</span>
+					<span>e</span><span>f</span><span>g</span><span>h</span>
+				</div>
 			</div>
-		</div>
-		<div class="controls">
-			<button id="new-game" type="button">New Game</button>
-		</div>
+			<div class="controls">
+				<button id="new-game" type="button">New Game</button>
+				<button id="back-to-menu" type="button">Back to Menu</button>
+			</div>
+		</section>
+
 		<script type="module" src="/app.js"></script>
 	</body>
 </html>

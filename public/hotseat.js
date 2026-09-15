@@ -15,7 +15,7 @@ const PROMOTION_CHOICES = [
 	{ type: "n", label: "Ranger" },
 ];
 
-export function startHotSeatGame(boardEl, statusEl, newGameBtn) {
+export function startHotSeatGame(boardEl, statusEl) {
 	let state;
 	let selectedSquare;
 	let legalMoves;
@@ -111,11 +111,9 @@ export function startHotSeatGame(boardEl, statusEl, newGameBtn) {
 		render();
 	}
 
-	if (newGameBtn) {
-		newGameBtn.addEventListener("click", resetGame);
-	}
-
 	resetGame();
+
+	return { reset: resetGame };
 }
 
 function showPromotionPicker(color, onChoose) {

@@ -135,13 +135,26 @@ working, deployed game — never a half-built one.
     position back in task 1.1, so it wasn't re-tested against a fresh
     board position here — only the wiring around it is new.
 
-- [ ] **1.5 — Landing screen with mode selection**
+- [x] **1.5 — Landing screen with mode selection**
   - Depends on: 1.4
   - Files: `public/index.html`, `public/app.js`, `public/styles.css`
   - Definition of done: the page opens on a start screen with three buttons
     (Hot-Seat, VS Computer, Online); Hot-Seat is fully playable; VS Computer
     and Online are visible but marked "coming soon" until their phases are
-    done.
+    done. ✅ Done. `index.html` now has a `#menu` section (three mode
+    buttons) and a `#game` section (the board, shown/hidden by a `.hidden`
+    CSS class); `app.js` owns navigation between them and calls into
+    `hotseat.js`'s new `reset()` return value both for "Hot-Seat" from the
+    menu and "New Game" inside the game, so re-entering Hot-Seat always
+    starts a fresh game. VS Computer and Online are disabled buttons
+    labeled "Coming soon". Verified with 16 automated in-browser checks —
+    including that leaving mid-game via "Back to Menu" and re-entering
+    Hot-Seat gives a genuinely fresh board, not the abandoned one — plus a
+    screenshot of the landing screen. One real bug caught in testing: the
+    `.hidden { display: none }` CSS rule was declared *before*
+    `.menu, .game { display: flex }` in the stylesheet, so on equal CSS
+    specificity the later rule silently won and nothing ever actually
+    hid — reordered the rules to fix it.
 
 - [ ] **1.6 — First live deployment** 🚀
   - Depends on: 1.5
@@ -277,8 +290,10 @@ working, deployed game — never a half-built one.
 
 ## Next step
 
-Phase 0 and all of Phase 1 through task 1.4 are complete — Hot-Seat is
-now a fully playable, self-contained game with a proper game-over
-banner and a New Game button. Tell me which task number to begin with —
-the recommended next task is **1.5** (the landing screen with mode
-selection), the last step before Hot-Seat's first live deployment.
+Phase 0 and all of Phase 1 through task 1.5 are complete. Tell me which
+task number to begin with — the recommended next task is **1.6, the
+first live deployment** 🚀 — this is the milestone that gets a real,
+shareable Cloudflare Workers URL with Hot-Seat chess playable by anyone
+on the internet. It will require you to log into a free Cloudflare
+account (see the README's "Deploying it live" section and our earlier
+conversation about `wrangler login`).
