@@ -396,20 +396,22 @@ working, deployed game — never a half-built one.
 
 ## Next step
 
-All of Phase 1, 2, and 3 are implemented and thoroughly tested locally:
-Hot-Seat, VS Computer, and Online are all built, and every rule,
-special move, game-ending condition, and network edge case has been
-verified with automated tests against a real local server (not just
-read over).
+All of Phase 1, 2, and 3 are implemented, and 4.3 is done too. Hot-Seat,
+VS Computer, and Online are all built, and every rule, special move,
+game-ending condition, and network edge case has been verified with
+automated tests against a real local server (not just read over).
 
-Two checkboxes (2.4, 3.6) are the only things left unchecked, and both
-are waiting on the same thing: a quick manual confirmation on the live
-site, since this cloud session's network policy blocks it from reaching
-`*.workers.dev` itself (see task 1.6's history). Once the latest commit
-auto-deploys via Cloudflare's Git integration, a quick check of
-https://dnd-chess.yankunzhang.workers.dev/ — try VS Computer, and try
-Online with two browser windows or two devices — is all that's left to
-close those out.
+**Two checkboxes (2.4, 3.6) are the only things left unchecked**, and
+both are waiting on the same thing: a quick manual confirmation on the
+live site, since this cloud session's network policy blocks it from
+reaching `*.workers.dev` itself (see task 1.6's history). Once the
+latest commit auto-deploys via Cloudflare's Git integration, a quick
+check of https://dnd-chess.yankunzhang.workers.dev/ — try VS Computer,
+and try Online with two browser windows or two devices — is all that's
+left to close those out.
 
-Phase 4 (theming polish and, if Figma screens are ever provided, an
-exact visual match) is the only work left after that.
+**4.1 (real D&D-class artwork) and 4.2 (matching Figma exactly) are
+paused** — both genuinely need something only the project owner can
+provide: either art assets/style direction for 4.1, or actual Figma
+screens for 4.2 (none have been shared in this project yet). Everything
+else that could be done without further input has been.
