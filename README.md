@@ -1,5 +1,8 @@
 # D&D Chess
 
+**Play it live:** https://dnd-chess.yankunzhang.workers.dev/ (Hot-Seat mode
+only for now — see [Status](#status) below)
+
 A browser-based chess game with a Dungeons & Dragons visual theme (pieces are
 skinned as D&D classes — e.g. the Bishop as a Cleric, the Knight as a Ranger —
 but the rules underneath are ordinary chess). It has three ways to play:
@@ -105,7 +108,9 @@ ProductSpec.md     What the app does and how it's organized, in more detail
 
 ## Status
 
-See [`FEATUREROADMAP_workplan.md`](./FEATUREROADMAP_workplan.md) for exactly
-what's built so far and what's next. Hot-Seat mode is built and deployed
-first, then VS Computer, then Online — each phase ships as a live,
-playable update before the next one starts.
+**Hot-Seat mode is live** at https://dnd-chess.yankunzhang.workers.dev/,
+deployed automatically from this repository's `main` branch via
+Cloudflare's Git integration — every push redeploys it. VS Computer and
+Online are still in progress. See
+[`FEATUREROADMAP_workplan.md`](./FEATUREROADMAP_workplan.md) for exactly
+what's built so far and what's next.

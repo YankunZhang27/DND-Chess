@@ -156,7 +156,7 @@ working, deployed game — never a half-built one.
     specificity the later rule silently won and nothing ever actually
     hid — reordered the rules to fix it.
 
-- [ ] **1.6 — First live deployment** 🚀
+- [x] **1.6 — First live deployment** 🚀
   - Depends on: 1.5
   - Files: `wrangler.jsonc`, `package.json` (no code changes expected —
     this task is a one-time account setup)
@@ -176,7 +176,14 @@ working, deployed game — never a half-built one.
   - Definition of done: Cloudflare's dashboard shows a successful deploy
     of `DND-Chess` and prints a `*.workers.dev` URL. That URL is visited
     in a browser and two people can play a full game of Hot-Seat chess,
-    start to finish, live on the internet.
+    start to finish, live on the internet. ✅ Done. Live at
+    https://dnd-chess.yankunzhang.workers.dev/ — this cloud session's own
+    network policy blocks it from reaching `*.workers.dev` too, so it
+    couldn't be verified automatically from here; the site owner
+    confirmed manually that Hot-Seat is playable end to end (a move as
+    each side, a full game reaching checkmate, and New Game resetting
+    correctly). **Hot-Seat chess is now live on the internet — Phase 1
+    is complete.**
 
 ---
 
@@ -306,15 +313,12 @@ working, deployed game — never a half-built one.
 
 ## Next step
 
-Phase 0 and all of Phase 1 through task 1.5 are complete. Next up is
-**1.6, the first live deployment** 🚀 — this is the milestone that gets
-a real, shareable Cloudflare Workers URL with Hot-Seat chess playable by
-anyone on the internet.
+🎉 **Phase 1 is complete.** Hot-Seat chess is live at
+https://dnd-chess.yankunzhang.workers.dev/, deployed automatically via
+Cloudflare's Git integration — every future push to `main` redeploys on
+its own, so tasks 2.4 and 3.6 won't need a separate manual deploy step.
 
-This one is waiting on a one-time, human-only setup step: connecting
-Cloudflare's Git integration to this GitHub repository, following the
-five steps listed under task 1.6 above (all done by clicking through
-Cloudflare's dashboard — no terminal, no commands). Once that's
-connected, Cloudflare deploys automatically, and every later "redeploy"
-task in this plan (2.4, 3.6) just happens on its own the moment new
-code is pushed to `main`.
+Phase 2 (the computer opponent) starts next. Tell me which task number
+to begin with — the recommended next task is **2.1** (the board scoring
+function), the first building block the computer opponent's move
+search will depend on.
