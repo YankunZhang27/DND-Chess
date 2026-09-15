@@ -90,6 +90,31 @@ h1 {
 	font-size: 0.9rem;
 }
 
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+	width: min(90vw, 20rem);
+	color: var(--color-parchment);
+}
+
+.field input {
+	font-family: inherit;
+	font-size: 1rem;
+	padding: 0.6rem 0.8rem;
+	border: 2px solid var(--color-gold);
+	border-radius: 0.3rem;
+	background: var(--color-bg);
+	color: var(--color-parchment);
+}
+
+.online-error {
+	min-height: 1.2rem;
+	margin: 0;
+	color: var(--color-crimson);
+	font-weight: bold;
+}
+
 .board-frame {
 	display: grid;
 	grid-template-columns: 1.5rem min(90vw, 32rem);

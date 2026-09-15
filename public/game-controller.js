@@ -24,8 +24,9 @@ const DEFAULT_SIDE_NAMES = { w: "White", b: "Black" };
 // — human or programmatic — so a mode can react, e.g. VS Computer
 // triggering its own reply once it becomes the computer's turn.
 export function createGameController(boardEl, statusEl, options = {}) {
-	const { humanColor = null, onMoveApplied, sideNames = DEFAULT_SIDE_NAMES } = options;
+	const { onMoveApplied, onAttemptMove, sideNames = DEFAULT_SIDE_NAMES } = options;
 
+	let humanColor = options.humanColor ?? null;
 	let state;
 	let selectedSquare;
 	let legalMoves;
@@ -99,12 +100,24 @@ export function createGameController(boardEl, statusEl, options = {}) {
 		return result;
 	}
 
+	function requestMove(from, to, promotionChoice) {
+		if (onAttemptMove) {
+			// Server-authoritative modes (Online): don't touch local state.
+			// The board updates only once the server broadcasts the result.
+			onAttemptMove(from, to, promotionChoice);
+			clearSelection();
+			render();
+		} else {
+			applyExternalMove(from, to, promotionChoice);
+		}
+	}
+
 	function completeMove(move) {
 		const needsPromotion = legalMoves.some((m) => m.to === move.to && m.promotion);
 		if (needsPromotion) {
-			showPromotionPicker(nameFor(state.turn), (choice) => applyExternalMove(selectedSquare, move.to, choice));
+			showPromotionPicker(nameFor(state.turn), (choice) => requestMove(selectedSquare, move.to, choice));
 		} else {
-			applyExternalMove(selectedSquare, move.to, null);
+			requestMove(selectedSquare, move.to, null);
 		}
 	}
 
@@ -132,12 +145,27 @@ export function createGameController(boardEl, statusEl, options = {}) {
 		render();
 	}
 
+	function syncState(newState) {
+		// Adopt a state that's already been validated elsewhere (the
+		// server, in Online mode) without re-running rules.applyMove.
+		state = newState;
+		clearSelection();
+		render();
+	}
+
+	function setHumanColor(color) {
+		humanColor = color;
+		render();
+	}
+
 	resetGame();
 
 	return {
 		reset: resetGame,
 		getState: () => state,
 		applyExternalMove,
+		syncState,
+		setHumanColor,
 	};
 }
 

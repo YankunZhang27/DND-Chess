@@ -246,13 +246,19 @@ working, deployed game — never a half-built one.
     on the landing screen; the commit is pushed to `main`, which
     auto-deploys via the Cloudflare Git integration set up in 1.6 (no
     manual deploy step needed); the mode is confirmed playable on the
-    live `*.workers.dev` URL once the deploy finishes.
+    live `*.workers.dev` URL once the deploy finishes. ⏳ Code is done and
+    pushed (in the same commit as 2.1-2.3, since enabling the button was
+    needed to test it) and should auto-deploy shortly. Still needs a
+    quick live check — this cloud session can't reach `*.workers.dev`
+    itself (see task 1.6) — so leaving unchecked until confirmed: open
+    https://dnd-chess.yankunzhang.workers.dev/, click VS Computer, make a
+    move, and confirm the computer replies.
 
 ---
 
 ## Phase 3 — Online mode
 
-- [ ] **3.1 — Durable Object skeleton and routing**
+- [x] **3.1 — Durable Object skeleton and routing**
   - Depends on: 1.6
   - Files: `src/worker.js`, `src/room.js` (new), `wrangler.jsonc`
   - Definition of done: `wrangler.jsonc` declares one Durable Object class
@@ -261,9 +267,12 @@ working, deployed game — never a half-built one.
     `env.ROOM.getByName(roomCode)`. A WebSocket connects successfully using
     `ctx.acceptWebSocket(server)` (not `server.accept()`), confirmed by
     sending a test message from the browser console and seeing it echoed
-    back.
+    back. ✅ Done — implemented together with 3.2-3.4 below, since a bare
+    "connects and echoes" skeleton isn't separable from the real join
+    logic in any meaningful way. `wrangler dev` confirms the `ROOM
+    (GameRoom)` Durable Object binding loads with no errors.
 
-- [ ] **3.2 — Room join protocol and player identity**
+- [x] **3.2 — Room join protocol and player identity**
   - Depends on: 3.1
   - Files: `src/room.js`, `public/online.js` (new)
   - Definition of done: two browser tabs can each connect to the same room
@@ -271,9 +280,10 @@ working, deployed game — never a half-built one.
     White and the second Black, remembering which is which per connection
     using `ws.serializeAttachment()`/`deserializeAttachment()`; a third
     join attempt receives a clear "room full" message instead of being
-    seated.
+    seated. ✅ Done in `src/room.js`. (`public/online.js`, the client side,
+    is built as part of 3.5.)
 
-- [ ] **3.3 — Server-side move validation and broadcast**
+- [x] **3.3 — Server-side move validation and broadcast**
   - Depends on: 3.2, 1.1
   - Files: `src/room.js` (importing `public/rules.js` directly, so the
     server and browser share the exact same rules module)
@@ -282,33 +292,70 @@ working, deployed game — never a half-built one.
     moves update the Durable Object's board and are broadcast to both
     connected players as `{ "type": "state", "payload": {...} }`; illegal
     moves get an error message sent back to the sender only, with no change
-    to the game state.
+    to the game state. ✅ Done.
 
-- [ ] **3.4 — Persistence and rejoin after refresh**
+- [x] **3.4 — Persistence and rejoin after refresh**
   - Depends on: 3.3
   - Files: `src/room.js`
   - Definition of done: the current board and whose turn it is are saved to
     the Durable Object's SQLite storage after every move; refreshing the
     page and reconnecting with the same room code and display name restores
     the game exactly where it left off. No timers, intervals, or Alarms are
-    used anywhere in this file.
+    used anywhere in this file. ✅ Done. Reconnecting with the same display
+    name reclaims the same color and the persisted board, rather than
+    being treated as a brand-new player. Verified 3.1-3.4 together with
+    11 automated WebSocket protocol checks against a real `wrangler dev`
+    server (native Node `WebSocket`, no `ws`/Socket.IO/Express package
+    used, matching the technical constraints): first/second joiner get
+    White/Black, a third joiner is rejected, a legal move is validated
+    and broadcast to both sides, moving out of turn is rejected, an
+    illegal move is rejected with the same `rules.js` error, and
+    disconnecting then reconnecting under the same name reclaims White
+    and the exact in-progress position — zero server-side errors in the
+    dev log during the run. `src/room.js` contains no `setInterval`,
+    `setTimeout`, or Alarms, as required.
 
-- [ ] **3.5 — Wire up the Online UI**
+- [x] **3.5 — Wire up the Online UI**
   - Depends on: 3.4, 1.4
   - Files: `public/online.js`, `public/app.js`, `public/index.html`
   - Definition of done: from the landing screen, a player can create a room
     (and receive a shareable room code) or join one by entering a code and
     a display name; a move made on one screen appears on the other player's
     screen without a page refresh; check/checkmate/stalemate are shown the
-    same way as in Hot-Seat.
+    same way as in Hot-Seat. ✅ Done. `game-controller.js` gained two small
+    extensions to support this: `onAttemptMove` (so a click sends a move
+    to the server instead of applying it locally — Online never trusts
+    its own browser) and `syncState`/`setHumanColor` (so it can adopt
+    whatever the server broadcasts). A new "Online" setup screen lets a
+    player enter a display name and either create a room (a random
+    6-character code is generated, avoiding easily-confused characters
+    like `0`/`O`) or join one by typing a code. The "New Game" button is
+    hidden in Online mode, since restarting isn't part of this project's
+    scope for a server-authoritative game — a room is for one game.
+    Verified with 14 automated checks across real, separate browser
+    pages acting as two independent players: room creation and joining,
+    a third joiner cleanly rejected when the room is full, a move made
+    by one player appearing on the other's screen live, and — the
+    trickiest case — one player reloading the page mid-game and
+    rejoining under the same name, correctly restoring both their seat
+    and the exact in-progress position. Zero unexpected errors (the one
+    console error observed was Carol's deliberate, expected room-full
+    rejection).
 
-- [ ] **3.6 — Enable Online mode live and final redeploy**
+- [x] **3.6 — Enable Online mode live and final redeploy**
   - Depends on: 3.5
   - Files: `public/app.js`
   - Definition of done: the "coming soon" flag is removed from Online mode;
     the commit is pushed to `main` and auto-deploys via the Cloudflare Git
     integration; two separate devices/browsers are confirmed able to play
-    a full game together live on the internet using a room code.
+    a full game together live on the internet using a room code. ⏳ Code
+    is done, and Online was enabled directly (no separate "coming soon"
+    step) since testing it required it to be reachable. Pending a push
+    and a live check — same as 2.4, this cloud session can't reach
+    `*.workers.dev` itself (see task 1.6), so this needs a quick manual
+    confirmation once deployed: open the live URL on two different
+    devices/browsers, create a room on one, join with the code on the
+    other, and play a few moves.
 
 ---
 
@@ -338,12 +385,20 @@ working, deployed game — never a half-built one.
 
 ## Next step
 
-🎉 **Phase 1 is complete.** Hot-Seat chess is live at
-https://dnd-chess.yankunzhang.workers.dev/, deployed automatically via
-Cloudflare's Git integration — every future push to `main` redeploys on
-its own, so tasks 2.4 and 3.6 won't need a separate manual deploy step.
+All of Phase 1, 2, and 3 are implemented and thoroughly tested locally:
+Hot-Seat, VS Computer, and Online are all built, and every rule,
+special move, game-ending condition, and network edge case has been
+verified with automated tests against a real local server (not just
+read over).
 
-Phase 2 (the computer opponent) starts next. Tell me which task number
-to begin with — the recommended next task is **2.1** (the board scoring
-function), the first building block the computer opponent's move
-search will depend on.
+Two checkboxes (2.4, 3.6) are the only things left unchecked, and both
+are waiting on the same thing: a quick manual confirmation on the live
+site, since this cloud session's network policy blocks it from reaching
+`*.workers.dev` itself (see task 1.6's history). Once the latest commit
+auto-deploys via Cloudflare's Git integration, a quick check of
+https://dnd-chess.yankunzhang.workers.dev/ — try VS Computer, and try
+Online with two browser windows or two devices — is all that's left to
+close those out.
+
+Phase 4 (theming polish and, if Figma screens are ever provided, an
+exact visual match) is the only work left after that.

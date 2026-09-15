@@ -20,14 +20,38 @@
 					<span class="mode-title">VS Computer</span>
 					<span class="mode-desc">Play against the browser</span>
 				</button>
-				<button id="mode-online" type="button" class="mode-button" disabled>
+				<button id="mode-online" type="button" class="mode-button">
 					<span class="mode-title">Online</span>
-					<span class="mode-desc">Coming soon</span>
+					<span class="mode-desc">Play a friend over the internet</span>
 				</button>
 			</div>
 		</section>
 
+		<section id="online-setup" class="menu hidden">
+			<p class="tagline">Play Online</p>
+			<label class="field">
+				Display name
+				<input id="online-name" type="text" maxlength="20" placeholder="Your name" />
+			</label>
+			<button id="online-create" type="button" class="mode-button">
+				<span class="mode-title">Create Room</span>
+				<span class="mode-desc">Get a new room code to share</span>
+			</button>
+			<p class="tagline">— or —</p>
+			<label class="field">
+				Room code
+				<input id="online-code" type="text" maxlength="10" placeholder="Enter a room code" />
+			</label>
+			<button id="online-join" type="button" class="mode-button">
+				<span class="mode-title">Join Room</span>
+				<span class="mode-desc">Enter a code someone shared with you</span>
+			</button>
+			<p id="online-setup-error" class="online-error"></p>
+			<button id="online-setup-back" type="button">Back to Menu</button>
+		</section>
+
 		<section id="game" class="game hidden">
+			<p id="online-info" class="tagline hidden"></p>
 			<p id="status" class="status"></p>
 			<div class="board-frame">
 				<div class="ranks">
