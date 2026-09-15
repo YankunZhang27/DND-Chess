@@ -403,17 +403,17 @@ working, deployed game — never a half-built one.
 
 ---
 
-## Next step
+## Status: complete
 
-🎉 **Phases 1, 2, 3, and now 4.1 are all complete.** Hot-Seat, VS
-Computer, and Online all work end-to-end live at
-https://dnd-chess.yankunzhang.workers.dev/, and every piece now has its
-own hand-drawn D&D-class icon (Wizard bishops, Paladin rooks, Ranger
-knights, and so on) instead of plain chess glyphs.
+🎉 **Every task that could be done without further input is done, and
+confirmed live** at https://dnd-chess.yankunzhang.workers.dev/ by the
+project owner, including the D&D-class artwork. Hot-Seat, VS Computer,
+and Online all work end-to-end, built without any third-party chess or
+engine library, on the Cloudflare Workers Free plan, deploying
+automatically on every push to `main`.
 
-**Only 4.2 (matching Figma exactly) remains, and it's paused** — it
-needs actual Figma screens, none of which have been shared in this
-project. Everything else that could be done without further input has
-been done. The next commit should auto-deploy the new artwork live via
-Cloudflare's Git integration — worth a quick look once it's up, though
-this isn't a blocking check the way 2.4/3.6 were.
+**Only 4.2 (matching Figma exactly) remains, and it stays paused
+indefinitely** until actual Figma screens are shared for this project —
+none have been so far. If that ever happens, this file is the place to
+pick the work back up: read the relevant task above, check the
+dependencies are still satisfied, and go from there.
