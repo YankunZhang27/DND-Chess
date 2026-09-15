@@ -158,10 +158,24 @@ working, deployed game — never a half-built one.
 
 - [ ] **1.6 — First live deployment** 🚀
   - Depends on: 1.5
-  - Files: `wrangler.jsonc`, `package.json`
-  - Definition of done: `npx wrangler deploy` succeeds on the Cloudflare
-    Workers Free plan. The printed `*.workers.dev` URL is visited in a
-    browser and two people can play a full game of Hot-Seat chess,
+  - Files: `wrangler.jsonc`, `package.json` (no code changes expected —
+    this task is a one-time account setup)
+  - Deploy method: **Cloudflare Git integration** ("Workers Builds"),
+    not the command-line `wrangler deploy`. This cloud session's network
+    is blocked from reaching Cloudflare's own servers by its network
+    policy, and it can't run a browser-based `wrangler login` either, so
+    the human owner connects Cloudflare to GitHub once, by clicking
+    through Cloudflare's dashboard — no terminal involved. From then on,
+    every push to `main` auto-deploys. Setup (human-only, one time):
+    1. Log into dash.cloudflare.com.
+    2. Workers & Pages → Create → Import a repository.
+    3. Authorize Cloudflare's GitHub App for `YankunZhang27/DND-Chess`.
+    4. Select the `main` branch; leave Build command empty and Deploy
+       command as its default (`npx wrangler deploy`).
+    5. Save and Deploy.
+  - Definition of done: Cloudflare's dashboard shows a successful deploy
+    of `DND-Chess` and prints a `*.workers.dev` URL. That URL is visited
+    in a browser and two people can play a full game of Hot-Seat chess,
     start to finish, live on the internet.
 
 ---
@@ -197,8 +211,10 @@ working, deployed game — never a half-built one.
   - Depends on: 2.3
   - Files: `public/app.js`
   - Definition of done: the "coming soon" flag is removed from VS Computer
-    on the landing screen; `npx wrangler deploy` is run again; the mode is
-    confirmed playable on the live `*.workers.dev` URL.
+    on the landing screen; the commit is pushed to `main`, which
+    auto-deploys via the Cloudflare Git integration set up in 1.6 (no
+    manual deploy step needed); the mode is confirmed playable on the
+    live `*.workers.dev` URL once the deploy finishes.
 
 ---
 
@@ -258,9 +274,9 @@ working, deployed game — never a half-built one.
   - Depends on: 3.5
   - Files: `public/app.js`
   - Definition of done: the "coming soon" flag is removed from Online mode;
-    `npx wrangler deploy` is run again; two separate devices/browsers are
-    confirmed able to play a full game together live on the internet using
-    a room code.
+    the commit is pushed to `main` and auto-deploys via the Cloudflare Git
+    integration; two separate devices/browsers are confirmed able to play
+    a full game together live on the internet using a room code.
 
 ---
 
@@ -290,10 +306,15 @@ working, deployed game — never a half-built one.
 
 ## Next step
 
-Phase 0 and all of Phase 1 through task 1.5 are complete. Tell me which
-task number to begin with — the recommended next task is **1.6, the
-first live deployment** 🚀 — this is the milestone that gets a real,
-shareable Cloudflare Workers URL with Hot-Seat chess playable by anyone
-on the internet. It will require you to log into a free Cloudflare
-account (see the README's "Deploying it live" section and our earlier
-conversation about `wrangler login`).
+Phase 0 and all of Phase 1 through task 1.5 are complete. Next up is
+**1.6, the first live deployment** 🚀 — this is the milestone that gets
+a real, shareable Cloudflare Workers URL with Hot-Seat chess playable by
+anyone on the internet.
+
+This one is waiting on a one-time, human-only setup step: connecting
+Cloudflare's Git integration to this GitHub repository, following the
+five steps listed under task 1.6 above (all done by clicking through
+Cloudflare's dashboard — no terminal, no commands). Once that's
+connected, Cloudflare deploys automatically, and every later "redeploy"
+task in this plan (2.4, 3.6) just happens on its own the moment new
+code is pushed to `main`.

@@ -53,14 +53,28 @@ Durable Object used for Online mode) without needing a Cloudflare account.
 
 Requires a free [Cloudflare account](https://dash.cloudflare.com/sign-up).
 
-```bash
-npx wrangler login   # opens a browser to connect your Cloudflare account
-npm run deploy
-```
+This project deploys via **Cloudflare's Git integration** ("Workers
+Builds") rather than by running a command yourself: you connect Cloudflare
+to this GitHub repository once, by clicking through Cloudflare's
+dashboard, and from then on every push to `main` deploys automatically —
+no terminal needed for deploys.
 
-Wrangler will print a live URL when it finishes, e.g.
+One-time setup:
+
+1. Log into [dash.cloudflare.com](https://dash.cloudflare.com).
+2. **Workers & Pages → Create → Import a repository**.
+3. Authorize Cloudflare's GitHub App for this repository.
+4. Select the `main` branch. Leave **Build command** empty and **Deploy
+   command** as its default (`npx wrangler deploy`).
+5. Click **Save and Deploy**.
+
+Cloudflare will print a live URL when it finishes, e.g.
 `https://dnd-chess.<your-subdomain>.workers.dev`. Anyone with that link can
 play — no installation needed on their end.
+
+(If you'd rather deploy by hand instead, `npx wrangler login` followed by
+`npm run deploy` from a terminal works too — but it's not required with the
+Git integration set up.)
 
 ## Project layout
 
