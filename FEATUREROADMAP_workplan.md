@@ -189,30 +189,55 @@ working, deployed game — never a half-built one.
 
 ## Phase 2 — VS Computer mode
 
-- [ ] **2.1 — Board scoring function**
+- [x] **2.1 — Board scoring function**
   - Depends on: 1.1
   - Files: `public/ai.js` (new)
   - Definition of done: a function that adds up standard piece values
     (pawn 1, knight/bishop 3, rook 5, queen 9, a large constant for the
     king) for a given board and returns a single number, positive when
-    White is ahead.
+    White is ahead. ✅ Done. `scoreBoard` in `public/ai.js`. The king is
+    scored 0 rather than a large constant — since both sides always have
+    exactly one king in any non-game-over position, a king value would
+    always cancel out to zero anyway, so a large constant would be dead
+    weight; checkmate is instead detected directly (see 2.2).
 
-- [ ] **2.2 — Minimax with alpha-beta pruning (depth 2)**
+- [x] **2.2 — Minimax with alpha-beta pruning (depth 2)**
   - Depends on: 2.1, 1.1
   - Files: `public/ai.js`
   - Definition of done: a function that, given a board and whose turn it
     is, returns a legal move chosen by searching two half-moves ahead with
     alpha-beta pruning, scored by 2.1's function. Timed manually in the
     browser console on a mid-game position and confirmed to return in
-    under two seconds.
+    under two seconds. ✅ Done. `chooseComputerMove` in `public/ai.js`.
+    Checkmate/stalemate are scored directly as decisive/neutral outcomes
+    at any depth (a small, standard addition — without it, "opponent has
+    no legal moves" would be scored as an ordinary position instead of a
+    win, which isn't a real minimax implementation). Verified with 6
+    automated Node tests: correct material scoring, a real timing
+    measurement (35ms — far under the 2-second limit, not just "probably
+    fine"), the computer capturing an undefended hanging queen, and the
+    computer finding and playing an available mate-in-1 instead of a
+    weaker move.
 
-- [ ] **2.3 — Wire up VS Computer mode**
+- [x] **2.3 — Wire up VS Computer mode**
   - Depends on: 2.2, 1.4
   - Files: `public/vscomputer.js` (new), `public/app.js`
   - Definition of done: selecting VS Computer lets the human play one
     color; after each legal human move, the computer automatically replies
     within two seconds; check/checkmate/stalemate behave exactly as in
-    Hot-Seat.
+    Hot-Seat. ✅ Done, with one structural change beyond the planned file
+    list: Hot-Seat and VS Computer share almost all of their click-to-move
+    logic (select a piece, highlight legal squares, promotion picker,
+    check/checkmate/stalemate display), and Online mode in Phase 3 will
+    need the same thing again, so that shared logic was pulled out into a
+    new `public/game-controller.js` rather than copy-pasted a second and
+    (soon) third time. `hotseat.js` is now a two-line wrapper around it;
+    `vscomputer.js` configures it with `humanColor: "w"` (the human is
+    always White) and a hook that triggers `ai.js`'s `chooseComputerMove`
+    the moment it becomes Black's turn. Verified with 10 automated
+    browser checks (including a Hot-Seat regression pass, to make sure
+    the refactor didn't break the existing mode) plus a 20-move randomized
+    stress game against the computer — zero console errors throughout.
 
 - [ ] **2.4 — Enable VS Computer live and redeploy**
   - Depends on: 2.3
