@@ -48,7 +48,7 @@ working, deployed game — never a half-built one.
 
 ## Phase 1 — Hot-Seat mode (ships live first)
 
-- [ ] **1.1 — Build the chess rules engine**
+- [x] **1.1 — Build the chess rules engine**
   - Depends on: 0.3
   - Files: `public/rules.js` (new)
   - Definition of done: a single hand-written module (no chess library)
@@ -58,7 +58,18 @@ working, deployed game — never a half-built one.
     and stalemate. Verified by manually running through the test positions
     listed in this task's PR description (e.g. scholar's mate, a legal en
     passant capture, a legal castle, a promotion) in the browser console
-    before moving on.
+    before moving on. ✅ Done. Verified with a temporary Node test script
+    (not committed — it isn't part of the app) covering: the initial
+    position has exactly 20 legal moves; a full scholar's-mate sequence
+    ends in checkmate; illegal moves are rejected; en passant is offered
+    and executed correctly; kingside castling moves both the king and
+    rook and clears castling rights; a pawn reaching the last rank can
+    promote to any of the four pieces; a known stalemate position is
+    correctly detected as a draw with no legal moves. One real bug was
+    caught and fixed along the way: `getLegalMoves` was silently dropping
+    the "this pawn just moved two squares" flag, which meant en passant
+    could never actually trigger — fixed by carrying that flag through to
+    `applyMove`.
 
 - [ ] **1.2 — Render the board and pieces**
   - Depends on: 1.1
@@ -227,6 +238,6 @@ working, deployed game — never a half-built one.
 
 ## Next step
 
-Phase 0 is complete. Tell me which task number to begin with — the
-recommended next task is **1.1** (the chess rules engine), since every
-other remaining task depends on it either directly or indirectly.
+Phase 0 and task 1.1 are complete. Tell me which task number to begin
+with — the recommended next task is **1.2** (render the board and
+pieces), which is the first thing that will be visible in a browser.
