@@ -239,20 +239,15 @@ working, deployed game — never a half-built one.
     the refactor didn't break the existing mode) plus a 20-move randomized
     stress game against the computer — zero console errors throughout.
 
-- [ ] **2.4 — Enable VS Computer live and redeploy**
+- [x] **2.4 — Enable VS Computer live and redeploy**
   - Depends on: 2.3
   - Files: `public/app.js`
   - Definition of done: the "coming soon" flag is removed from VS Computer
     on the landing screen; the commit is pushed to `main`, which
     auto-deploys via the Cloudflare Git integration set up in 1.6 (no
     manual deploy step needed); the mode is confirmed playable on the
-    live `*.workers.dev` URL once the deploy finishes. ⏳ Code is done and
-    pushed (in the same commit as 2.1-2.3, since enabling the button was
-    needed to test it) and should auto-deploy shortly. Still needs a
-    quick live check — this cloud session can't reach `*.workers.dev`
-    itself (see task 1.6) — so leaving unchecked until confirmed: open
-    https://dnd-chess.yankunzhang.workers.dev/, click VS Computer, make a
-    move, and confirm the computer replies.
+    live `*.workers.dev` URL once the deploy finishes. ✅ Done. Confirmed
+    working live by the site owner.
 
 ---
 
@@ -348,14 +343,8 @@ working, deployed game — never a half-built one.
   - Definition of done: the "coming soon" flag is removed from Online mode;
     the commit is pushed to `main` and auto-deploys via the Cloudflare Git
     integration; two separate devices/browsers are confirmed able to play
-    a full game together live on the internet using a room code. ⏳ Code
-    is done, and Online was enabled directly (no separate "coming soon"
-    step) since testing it required it to be reachable. Pending a push
-    and a live check — same as 2.4, this cloud session can't reach
-    `*.workers.dev` itself (see task 1.6), so this needs a quick manual
-    confirmation once deployed: open the live URL on two different
-    devices/browsers, create a room on one, join with the code on the
-    other, and play a few moves.
+    a full game together live on the internet using a room code. ✅ Done.
+    Confirmed working live by the site owner.
 
 ---
 
@@ -396,22 +385,14 @@ working, deployed game — never a half-built one.
 
 ## Next step
 
-All of Phase 1, 2, and 3 are implemented, and 4.3 is done too. Hot-Seat,
-VS Computer, and Online are all built, and every rule, special move,
-game-ending condition, and network edge case has been verified with
-automated tests against a real local server (not just read over).
+🎉 **Phases 1, 2, and 3 are all complete and confirmed live.** Hot-Seat,
+VS Computer, and Online all work end-to-end on
+https://dnd-chess.yankunzhang.workers.dev/, verified by the site owner
+directly on the deployed site (not just in local testing).
 
-**Two checkboxes (2.4, 3.6) are the only things left unchecked**, and
-both are waiting on the same thing: a quick manual confirmation on the
-live site, since this cloud session's network policy blocks it from
-reaching `*.workers.dev` itself (see task 1.6's history). Once the
-latest commit auto-deploys via Cloudflare's Git integration, a quick
-check of https://dnd-chess.yankunzhang.workers.dev/ — try VS Computer,
-and try Online with two browser windows or two devices — is all that's
-left to close those out.
-
-**4.1 (real D&D-class artwork) and 4.2 (matching Figma exactly) are
-paused** — both genuinely need something only the project owner can
-provide: either art assets/style direction for 4.1, or actual Figma
-screens for 4.2 (none have been shared in this project yet). Everything
-else that could be done without further input has been.
+**Only 4.1 (real D&D-class artwork) and 4.2 (matching Figma exactly)
+remain, and both are paused** — both genuinely need something only the
+project owner can provide: either art assets/style direction for 4.1,
+or actual Figma screens for 4.2 (none have been shared in this project
+yet). Everything else in this plan that could be done without further
+input has been done.
