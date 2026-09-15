@@ -29,7 +29,7 @@ working, deployed game — never a half-built one.
     describe the app, its architecture, and this build order. ✅ Done (this
     commit).
 
-- [ ] **0.3 — Scaffold the Cloudflare Workers project**
+- [x] **0.3 — Scaffold the Cloudflare Workers project**
   - Depends on: 0.2
   - Files: `wrangler.jsonc` (new), `package.json` (new), `public/index.html`
     (new, placeholder), `src/worker.js` (new, placeholder)
@@ -38,7 +38,11 @@ working, deployed game — never a half-built one.
     `"assets"` block pointing at `public/` with
     `"not_found_handling": "single-page-application"`. `npm install` then
     `npm run dev` starts a local server that serves a blank placeholder page
-    with no errors in the browser console or terminal.
+    with no errors in the browser console or terminal. ✅ Done. Note:
+    Wrangler had to be pinned to `^4.132.0` — the initially installed
+    `^3.90.0` doesn't understand a 2026 compatibility date and silently
+    falls back to an older one, which would have violated the "set
+    compatibility_date to today's date" requirement.
 
 ---
 
@@ -223,6 +227,6 @@ working, deployed game — never a half-built one.
 
 ## Next step
 
-Everything above Phase 0 is unstarted. Tell me which task number to begin
-with — the recommended next task is **0.3** (project scaffolding), since
-every later task depends on it either directly or indirectly.
+Phase 0 is complete. Tell me which task number to begin with — the
+recommended next task is **1.1** (the chess rules engine), since every
+other remaining task depends on it either directly or indirectly.

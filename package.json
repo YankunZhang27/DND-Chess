@@ -1,0 +1,14 @@
+{
+	"name": "dnd-chess",
+	"version": "0.1.0",
+	"description": "A D&D-themed chess game with Hot-Seat, VS Computer, and Online modes, built on Cloudflare Workers.",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"dev": "wrangler dev",
+		"deploy": "wrangler deploy"
+	},
+	"devDependencies": {
+		"wrangler": "^4.132.0"
+	}
+}
